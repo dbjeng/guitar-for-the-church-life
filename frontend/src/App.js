@@ -3,11 +3,13 @@ import './App.css';
 
 function App() {
   return (
+    
     <div className="App">
+      <title>guitarforthechurch.life</title>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>I dont understand</code> and save to reload.
+          Edit <code>I dont</code> and save to reload.
         </p>
         <a
           className="App-link"
@@ -15,7 +17,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          WAWA
+          AAH
         </a>
       </header>
     </div>
