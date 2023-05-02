@@ -19,5 +19,6 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('filter/', views.filter)
+    path('filter/<str:chords>', views.filter),
+    path('best_order_to_learn_chords/', views.best_order_to_learn_chords)
 ]
