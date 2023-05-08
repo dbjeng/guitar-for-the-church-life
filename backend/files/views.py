@@ -2,25 +2,30 @@ from django.http import HttpResponse
 import requests
 import json
 import re
+import logging
 
 # Example call: http://127.0.0.1:8000/filter/chords=G,D
-def filter(request, chords=""):
+def filter_endpoint(request, chords=""):
+    # logging.basicConfig(level=logging.DEBUG)
+
     chords = str(chords).split(",")
     raw_data = requests.request("GET", "https://songbase.life/api/v1/app_data?language=english")
 
     if raw_data.status_code != 200:
         return HttpResponse("Request did not work.")
 
-    raw_data = raw_data.json()
+    raw_data = json.loads(raw_data.content)
 
-    # result = []
-    # # Simple implementation
-    # for song in raw_data["songs"]:
-    #     curr_chords = extract_chords(song["lyrics"])
-    #     if len(curr_chords) > 0 and curr_chords.issubset(chords):
-    #         result.append(song)
-
-    # This list contains tuples of chords to the songs that are in them
+    result = []
+    # Get songs whose chords are a subset of the chords given (simple implementation)
+    for song in raw_data["songs"]:
+        curr_chords = extract_chords(song["lyrics"])
+        if len(curr_chords) > 0 and curr_chords.issubset(chords):
+            result.append(song)
+           
+    # # # TODO: create a faster adding method (take advantage of sorted list)
+    # # More complicated implementation to make addition and subtraction of chords faster
+    # # This list contains tuples of chords to the songs that are in them
     # chords_to_songs = {}
     # # Make one sweep across chords, find all the chords
     # for song in raw_data.content["songs"]:
@@ -34,10 +39,9 @@ def filter(request, chords=""):
     #             chords_to_songs.append({chord : [song["id"]]})
 
     # result = set()
-    # # TODO: create a faster adding method (take advantage of sorted list)
     # for chord in chords:
     #     result.update(chords_to_songs[chord])
-    return HttpResponse(raw_data)
+    return HttpResponse(json.dumps(result))
 
 
 def best_order_to_learn_chords(request):  # Remove all songs with no chords
@@ -46,7 +50,7 @@ def best_order_to_learn_chords(request):  # Remove all songs with no chords
     )
 
     # Filter out songs without chords
-    raw_data = filter_out_no_chord_songs(raw_data)
+    raw_data = filter_out_no_chord_songs(json.loads(raw_data.content))
 
     # Get all the chords and get list of songs with two chords
     all_chords = set()
@@ -76,15 +80,20 @@ def best_order_to_learn_chords(request):  # Remove all songs with no chords
     best_chord_pair = list(best_chord_pair)
     learned_chords = best_chord_pair
 
+    # Remove songs playable with best 2 chords
+    unknown_songs = raw_data["songs"]
+    unknown_songs = filter_out_playable_songs(unknown_songs, learned_chords)
+
     # Greedy algo: Find the chord that, if learned, maximizes the number of playable songs
     best_chord = ""
+    prev_chord = ""
     new_songs = 0
     ultimate_result = [{best_chord_pair[0] + " and " + best_chord_pair[1]: most_songs_per_pair}]
     while len(all_chords) > 0:
         for chord in all_chords:
             learned_chords.append(chord)
             curr_new_songs = 0
-            for song in raw_data["songs"]:
+            for song in unknown_songs:
                 if extract_chords(song["lyrics"]).issubset(learned_chords):
                     curr_new_songs += 1
             if curr_new_songs >= new_songs:
@@ -94,10 +103,28 @@ def best_order_to_learn_chords(request):  # Remove all songs with no chords
             curr_new_songs = 0
         all_chords.remove(best_chord)
         learned_chords.append(best_chord)
+        # This if-else blocks combines chords that must be learned together for new 
+        # songs to be learned
+        if new_songs == 0:
+            prev_chord = best_chord + " and "
+            continue
+        elif prev_chord != "":
+            best_chord = prev_chord + best_chord
+            prev_chord = ""
         ultimate_result.append({best_chord: new_songs})
         best_chord = ""
         new_songs = 0
+        unknown_songs = filter_out_playable_songs(unknown_songs, learned_chords)
     return HttpResponse(ultimate_result)
+
+def filter_out_playable_songs(songs, chords):
+    # We assume that the newest chord learned was the last one in chords
+    songs_copy = songs.copy()
+    for song in songs:
+        curr_chords = extract_chords(song["lyrics"])
+        if chords[-1] in curr_chords and curr_chords.issubset(chords):
+            songs_copy.remove(song)
+    return songs_copy
 
 def filter_out_no_chord_songs(raw_data):
     index = 0
