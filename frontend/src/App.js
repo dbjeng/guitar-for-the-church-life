@@ -1,27 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
 
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+
+import Layout from "./scenes/Layout";
+import Home from "./scenes/Home";
+import ChordFilter from './scenes/ChordFilter';
+
 function App() {
-  return (
-    
-    <div className="App">
-      <title>guitarforthechurch.life</title>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>I dont</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          AAH
-        </a>
-      </header>
-    </div>
-  );
+  return (    
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>          
+          <Route path='/' element={<Home />} />
+          <Route path='/ChordFilter' element={<ChordFilter />} />    
+        </Route>    
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
