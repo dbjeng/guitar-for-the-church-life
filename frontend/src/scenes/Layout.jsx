@@ -7,11 +7,9 @@ import NavBar from "../components/NavBar"
 
 const Layout = () =>{
   return (
-    <Container fluid className="p-0">
-      <Container fluid className="p-0" style={{ minHeight: '100vh' }}>
-        <NavBar />
-        <Outlet />
-      </Container>
+    <Container fluid className="p-0" style={{ minHeight: '100vh' }}>
+      <NavBar />
+      <Outlet />
     </Container>
   );
 }

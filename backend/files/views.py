@@ -4,6 +4,18 @@ import json
 import re
 import logging
 
+# Returns set of all chords present in any song
+def all_chords(request):
+    raw_data = json.loads(requests.get(
+        "https://songbase.life/api/v1/app_data?language=english", params=request.GET
+    ).content)
+    all_chords = set()
+    for song in raw_data["songs"]:
+        curr_chords = extract_chords(song["lyrics"])
+        if len(curr_chords) > 0:
+            all_chords.update(curr_chords)
+    return HttpResponse(json.dumps({"all_chords": list(all_chords)}))
+
 # Example call: http://127.0.0.1:8000/filter/chords=G,D
 def filter_endpoint(request, chords=""):
     # logging.basicConfig(level=logging.DEBUG)
