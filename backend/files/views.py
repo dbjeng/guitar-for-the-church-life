@@ -4,6 +4,9 @@ import json
 import re
 import logging
 
+def backend_home(request):
+    return HttpResponse(json.dumps("Backend Home"))
+
 # Returns set of all chords present in any song
 def all_chords(request):
     raw_data = json.loads(requests.get(
