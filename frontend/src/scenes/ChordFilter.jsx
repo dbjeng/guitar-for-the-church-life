@@ -7,8 +7,16 @@ import ChordFilterBox from '../components/ChordFilterBox';
 import './ChordFilter.css'
 
 const ChordFilter = () => {
-  const all_chords = axios.get('http://127.0.0.1:8000/all_chords');
-  console.log(all_chords)
+  var all_chords;
+  axios.get('http://127.0.0.1:8000/all_chords')
+    .then(response => {
+      all_chords = response.data;
+      console.log(all_chords);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
 
   return (
     <React.Fragment>
