@@ -1,0 +1,17 @@
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+.tableCard {
+    margin: 10px;
+}
+
+th {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+td:first-child {
+    font-weight: bold;
+}
