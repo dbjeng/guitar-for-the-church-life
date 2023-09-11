@@ -1,22 +1,23 @@
 import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from './pages/Home';
+import KeyChordTable from './pages/KeyChordTable';
+import Layout from './pages/Layout';
 
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-
-import Layout from "./scenes/Layout";
-import Home from "./scenes/Home";
-import ChordFilter from './scenes/ChordFilter';
 
 function App() {
-  return (    
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>          
-          <Route path='/' element={<Home />} />
-          <Route path='/ChordFilter' element={<ChordFilter />} />    
-        </Route>    
-      </Routes>
-    </BrowserRouter>
-  )
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="keyChordTable" element={<KeyChordTable />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 }
 
-export default App
+export default App;
