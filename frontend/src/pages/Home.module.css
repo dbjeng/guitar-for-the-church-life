@@ -12,6 +12,6 @@
   justify-content: center;
   align-items: center;
   background-image: linear-gradient(var(--bs-primary), white);
-  height: 100%;
+  height: calc(100% - 56px);
   width: 100%;
 }
