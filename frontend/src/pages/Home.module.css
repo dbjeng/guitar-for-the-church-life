@@ -1,0 +1,17 @@
+.textLine {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 32px;
+  font-family: fangsong;
+}
+
+.verse {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(var(--bs-primary), white);
+  height: 100%;
+  width: 100%;
+}
