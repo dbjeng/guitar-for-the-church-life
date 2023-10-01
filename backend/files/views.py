@@ -1,8 +1,12 @@
 from django.http import HttpResponse
 import requests
+import requests_cache
 import json
 import re
 import logging
+
+# Caches for 5 hours
+requests_cache.install_cache('current_cache', expire_after=18000)
 
 def backend_home(request):
     return HttpResponse(json.dumps("Backend Home"))
