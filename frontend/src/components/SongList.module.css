@@ -1,0 +1,7 @@
+.container div:nth-child(even) button {
+  background-color: lightgray;
+}
+
+.container div button:hover {
+  font-weight: bold;
+}

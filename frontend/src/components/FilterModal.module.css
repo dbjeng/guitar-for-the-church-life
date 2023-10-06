@@ -1,0 +1,10 @@
+.footer {
+  justify-content: center !important;
+}
+
+.allowedChordsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}

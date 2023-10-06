@@ -8,6 +8,7 @@ export default function Navbar() {
         <ReactNavbar.Brand href="/">Guitar for the Church Life</ReactNavbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/keyChordTable">Key-Chord Table</Nav.Link>
+          <Nav.Link href="/songFilter">Song Filter</Nav.Link>
         </Nav>
       </Container>
     </ReactNavbar>
