@@ -12,7 +12,7 @@ export default function SongFilter() {
   useEffect(() => {
     axios
       .get(
-        "http://127.0.0.1:8001/all_chords/"
+        "http://guitar-for-the-church-life-env.eba-qzfhxmyy.us-west-1.elasticbeanstalk.com/all_chords/"
       )
       .then((response) => {
         const chordMap = {};

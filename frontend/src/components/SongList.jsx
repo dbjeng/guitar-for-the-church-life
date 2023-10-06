@@ -10,7 +10,7 @@ export default function SongList({allowedChords}){
     const encodedAllowedChordsParam = encodeURIComponent(allowedChords.join(','));
     axios
       .get(
-        `http://127.0.0.1:8001/filter/${encodedAllowedChordsParam}`
+        `http://guitar-for-the-church-life-env.eba-qzfhxmyy.us-west-1.elasticbeanstalk.com/filter/${encodedAllowedChordsParam}`
       )
       .then((response) => {
         const transformedData = response.data.map((song) => ({
