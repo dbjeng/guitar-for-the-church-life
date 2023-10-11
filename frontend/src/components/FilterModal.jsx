@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
-import Row from 'react-bootstrap/Row';
+import { useEffect } from 'react';
 import styles from "./FilterModal.module.css";
 
 export default function FilterModal({showModal, onHide, allowedChords, onSave}) {
+  console.log('allowedChords:', allowedChords)
   const [checkedChords, setCheckedChords] = useState(allowedChords);
+  console.log("check initialization: ", checkedChords)
+  
+  // Update checkedChords when allowedChords changes
+  useEffect(() => {
+    setCheckedChords(allowedChords);
+  }, [allowedChords]);
 
   function handleCheckboxChange(event) {
     const { name, checked } = event.target;
@@ -19,9 +24,9 @@ export default function FilterModal({showModal, onHide, allowedChords, onSave}) 
   }
 
   function generateCheckboxes() {
-    return Object.keys(allowedChords).map((chord) =>
-      <div>
-        <input type="checkbox" id={chord} name={chord} value={allowedChords[chord]} onChange={handleCheckboxChange}/>
+    return Object.keys(checkedChords).map((chord) =>
+      <div key={chord}>
+        <input type="checkbox" id={chord} name={chord} checked={checkedChords[chord]} onChange={handleCheckboxChange}/>
         <label for={chord}>{chord}</label>
       </div>
     )
@@ -40,7 +45,10 @@ export default function FilterModal({showModal, onHide, allowedChords, onSave}) 
         </div>
       </Modal.Body>
       <Modal.Footer className={styles.footer}>
-        <Button onClick={() => onSave(checkedChords)}>Update Settings</Button>
+        <Button onClick={() => {
+          onSave(checkedChords)
+          console.log(checkedChords)
+        }}>Update Settings</Button>
       </Modal.Footer>
     </Modal>
   );

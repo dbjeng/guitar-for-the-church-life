@@ -17,7 +17,7 @@ export default function SongFilter() {
       .then((response) => {
         const chordMap = {};
         for (const chord of response.data.all_chords){
-          chordMap[chord] = true;
+          chordMap[chord] = false;
         }
         setAllowedChords(chordMap);
       });
