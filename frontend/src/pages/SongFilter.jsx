@@ -12,7 +12,7 @@ export default function SongFilter() {
   useEffect(() => {
     axios
       .get(
-        "https://guitarforthechurch.life/all_chords/"
+        "https://backend.guitarforthechurch.life/all_chords/"
       )
       .then((response) => {
         const chordMap = {};
