@@ -26,7 +26,27 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['guitar-for-the-church-life-env.eba-qzfhxmyy.us-west-1.elasticbeanstalk.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'guitar-for-the-church-life-env.eba-qzfhxmyy.us-west-1.elasticbeanstalk.com', 
+    'backend.guitarforthechurch.life',
+    'localhost', 
+    '127.0.0.1']
+
+# I added this to limit the sites that could make requests to this backend
+CORS_ALLOWED_ORIGINS = [
+    "https://guitarforthechurch.life",
+    "http://guitarforthechurch.life",
+    "http://2603:8080:1400:7ce:e88e:5e7b:187a:5585",
+    "https://2603:8080:1400:7ce:e88e:5e7b:187a:5585",
+    "http://localhost:3000",
+]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'gftcl',
+    }
+}
 
 # Application definition
 
@@ -37,11 +57,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",

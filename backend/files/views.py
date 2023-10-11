@@ -1,43 +1,53 @@
 from django.http import HttpResponse
+# Used for caching songs sorted by title
+# from django.core.cache import cache
 import requests
 import requests_cache
 import json
 import re
 import logging
 
-# Caches for 5 hours
-requests_cache.install_cache('current_cache', expire_after=18000)
+requests_cache.install_cache('gftcl_cache', expire_after=18000)
 
 def backend_home(request):
     return HttpResponse(json.dumps("Backend Home"))
 
-# Returns set of all chords present in any song
+# Returns set of all chords present in any song, in alphabetical order
 def all_chords(request):
     raw_data = json.loads(requests.get(
-        "https://songbase.life/api/v1/app_data?language=english", params=request.GET
+        "https://songbase.life/api/v2/app_data?language=english", params=request.GET
     ).content)
     all_chords = set()
     for song in raw_data["songs"]:
         curr_chords = extract_chords(song["lyrics"])
         if len(curr_chords) > 0:
             all_chords.update(curr_chords)
-    return HttpResponse(json.dumps({"all_chords": list(all_chords)}))
+    return HttpResponse(json.dumps({"all_chords": sorted(list(all_chords))}))
 
-# Example call: http://127.0.0.1:8000/filter/chords=G,D
+def all_songs_AZ(request):
+    # TODO: implement caching
+    # Retrieve data from the cache, otherwise set it
+    # if (cache.get('sorted_songs') == None):
+    # cache.set('sorted_songs', sortedSongs, expire_after=18000) # Cache for 5 hours
+    raw_data = json.loads(requests.get(
+        "https://songbase.life/api/v2/app_data?language=english", params=request.GET
+    ).content)
+    sortedSongs = sorted(raw_data["songs"], key=lambda song: song["title"].lstrip("'\"("))
+    return sortedSongs
+
+# Example call: http://127.0.0.1:8000/filter/G,D
 def filter_endpoint(request, chords=""):
     # logging.basicConfig(level=logging.DEBUG)
+    if len(chords) == 0:
+        return HttpResponse(json.dumps([]))
 
     chords = str(chords).split(",")
-    raw_data = requests.request("GET", "https://songbase.life/api/v1/app_data?language=english")
 
-    if raw_data.status_code != 200:
-        return HttpResponse("Request did not work.")
-
-    raw_data = json.loads(raw_data.content)
+    alphabetical_songs = all_songs_AZ(request)
 
     result = []
     # Get songs whose chords are a subset of the chords given (simple implementation)
-    for song in raw_data["songs"]:
+    for song in alphabetical_songs:
         curr_chords = extract_chords(song["lyrics"])
         if len(curr_chords) > 0 and curr_chords.issubset(chords):
             result.append(song)
@@ -65,7 +75,7 @@ def filter_endpoint(request, chords=""):
 
 def best_order_to_learn_chords(request):  # Remove all songs with no chords
     raw_data = requests.get(
-        "https://songbase.life/api/v1/app_data?language=english", params=request.GET
+        "https://songbase.life/api/v2/app_data?language=english", params=request.GET
     )
 
     # Filter out songs without chords
