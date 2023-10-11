@@ -36,8 +36,8 @@ ALLOWED_HOSTS = [
 CORS_ALLOWED_ORIGINS = [
     "https://guitarforthechurch.life",
     "http://guitarforthechurch.life",
-    "http://2603:8080:1400:7ce:e88e:5e7b:187a:5585",
-    "https://2603:8080:1400:7ce:e88e:5e7b:187a:5585",
+    "https://www.guitarforthechurch.life",
+    "http://www.guitarforthechurch.life",
     "http://localhost:3000",
 ]
 
