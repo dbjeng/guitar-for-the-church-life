@@ -5,4 +5,4 @@ format:
 	black .
 
 # Command to start virtual environment
-# . .venv/bin/activate
+# source env/bin/activate

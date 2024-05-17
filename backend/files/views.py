@@ -12,7 +12,7 @@ requests_cache.install_cache('gftcl_cache', expire_after=18000)
 def backend_home(request):
     return HttpResponse(json.dumps("Backend Home"))
 
-# Returns set of all chords present in any song, in alphabetical order
+# Returns set of all chords present in all songs, in alphabetical order
 def all_chords(request):
     raw_data = json.loads(requests.get(
         "https://songbase.life/api/v2/app_data?language=english", params=request.GET
@@ -178,23 +178,44 @@ def extract_chords(song):
         "Psalm",
         "–",
         "110",
+        "Intro",
+        "All",
+        "end",
+        "or",
+        "Fmaj7s",        
     }
 
     # Extract chords in brackets
     chord_set = set(re.findall(r"\[(.*?)\]", song))
 
     # Split chords with weird symbols between them, such as hyphens
-    pattern = re.compile(r"[^a-zA-Z0-9/()#]+")
+    # These are the characters we want to keep in the chords
+    pattern = re.compile(r"[^a-zA-Z0-9/()#+]+")
     chord_set = {
         new_chord
         for old_chord in chord_set
         for new_chord in re.split(pattern, old_chord)
     }
+    
+    # Transform chords with format "(chord)", "(chord", or "chord)" to chords
+    # Transform chords like C(add9) to just C
+    updated_chord_set = set()
+    for chord in chord_set:
+        if re.compile(r"\(.*\)").match(chord):
+            updated_chord_set.add(chord[1:len(chord) - 1])
+        elif re.compile(r".*\)").match(chord) and "(" not in chord:
+            updated_chord_set.add(chord[0:len(chord) - 1])
+        elif re.compile(r"\(.*").match(chord) and ")" not in chord:
+            updated_chord_set.add(chord[1:len(chord)])
+        else:
+            updated_chord_set.add(re.sub(r'\(.*\)', '', chord))
+    chord_set = updated_chord_set
+
     # Remove chords in parentheses
-    pattern = re.compile(r"\(+.*")  # Matches strings with parenthesis in front
-    chord_set = chord_set - set(filter(pattern.match, chord_set))
-    pattern = re.compile(r".*\)+")  # Matches strings with parenthesis in back
-    chord_set = chord_set - set(filter(pattern.match, chord_set))
+    # pattern = re.compile(r"\(+.*")  # Matches strings with parenthesis in front
+    # chord_set = chord_set - set(filter(pattern.match, chord_set))
+    # pattern = re.compile(r".*\)+")  # Matches strings with parenthesis in back
+    # chord_set = chord_set - set(filter(pattern.match, chord_set))
 
     # Remove non-chords
     for non_chord in non_chords:
