@@ -11,9 +11,7 @@ export default function SongFilter() {
 
   useEffect(() => {
     axios
-      .get(
-        "https://backend.guitarforthechurch.life/all_chords/"
-      )
+      .get("/all_chords/")
       .then((response) => {
         const chordMap = {};
         for (const chord of response.data.all_chords){

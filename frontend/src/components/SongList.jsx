@@ -9,9 +9,7 @@ export default function SongList({allowedChords}){
   useEffect(() => {
     const encodedAllowedChordsParam = encodeURIComponent(allowedChords.join(','));
     axios
-      .get(
-        `https://backend.guitarforthechurch.life/filter/${encodedAllowedChordsParam}`
-      )
+      .get(`/filter/${encodedAllowedChordsParam}`)
       .then((response) => {
         const transformedData = response.data.map((song) => ({
           id: song.id,
