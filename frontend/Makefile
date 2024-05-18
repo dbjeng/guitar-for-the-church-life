@@ -1,3 +1,6 @@
+startdev:
+	npm run startdev
+
 start:
 	npm start
 
