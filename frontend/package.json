@@ -22,7 +22,7 @@
   "proxy": "http://localhost:8001",
   "scripts": {
     "heroku-postbuild": "npm install",
-    "start": "node server.js",
+    "start": "WATCHPACK_POLLING=true react-scripts start",
     "build": "react-scripts build"
   },
   "eslintConfig": {
