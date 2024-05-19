@@ -1,4 +1,7 @@
 start:
+	gunicorn: files.wsgi:application
+
+startdev:
 	python manage.py runserver
 
 format:
