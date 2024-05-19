@@ -2,7 +2,6 @@
   "scripts": {
     "frontend": "cd frontend && make start",
     "backend": "cd backend && make start",
-    "dev": "concurrently --kill-others-on-fail \"cd frontend && make start\" \"cd backend && make start\"",
-    "heroku-postbuild": "cd frontend && make install && make start"
+    "dev": "concurrently --kill-others-on-fail \"cd frontend && make start\" \"cd backend && make start\""
   }
 }
