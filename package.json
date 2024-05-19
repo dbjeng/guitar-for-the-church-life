@@ -1,7 +1,0 @@
-{
-  "scripts": {
-    "frontend": "cd frontend && make start",
-    "backend": "cd backend && make start",
-    "dev": "concurrently --kill-others-on-fail \"cd frontend && make start\" \"cd backend && make start\""
-  }
-}
