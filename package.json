@@ -3,6 +3,7 @@
     "frontend": "cd frontend && make start",
     "backend": "cd backend && make start",
     "dev": "concurrently --kill-others-on-fail \"cd frontend && make start\" \"cd backend && make start\"",
-    "heroku-postbuild": "cd frontend && make install && make build && make start"
+    // This assumes that the application is build before deployment (run "make build" before pushing to Heroku)
+    "heroku-postbuild": "cd frontend && make install && make start"
   }
 }
