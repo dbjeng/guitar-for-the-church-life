@@ -40,6 +40,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.guitarforthechurch.life",
     "http://www.guitarforthechurch.life",
     "http://localhost",
+    "*",
 ]
 
 CACHES = {
