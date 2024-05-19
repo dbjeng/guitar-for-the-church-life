@@ -35,11 +35,6 @@ ALLOWED_HOSTS = [
 
 # I added this to limit the sites that could make requests to this backend
 CORS_ALLOWED_ORIGINS = [
-    "https://guitarforthechurch.life",
-    "http://guitarforthechurch.life",
-    "https://www.guitarforthechurch.life",
-    "http://www.guitarforthechurch.life",
-    "http://localhost",
     "*",
 ]
 
