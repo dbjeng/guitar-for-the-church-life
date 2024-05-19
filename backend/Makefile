@@ -1,5 +1,5 @@
 start:
-	gunicorn: files.wsgi:application
+	gunicorn --bind localhost:$(PORT) files.wsgi:application
 
 startdev:
 	python manage.py runserver
