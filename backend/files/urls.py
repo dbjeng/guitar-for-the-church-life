@@ -20,7 +20,6 @@ from . import views
 
 urlpatterns = [
     path("/", views.backend_home),
-    path("admin/", admin.site.urls),
     path("all_chords/", views.all_chords),
     path("filter/<str:chords>", views.filter_endpoint),
     re_path(r'^filter/(?P<chords>.*)$', views.filter_endpoint),
