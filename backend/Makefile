@@ -1,5 +1,5 @@
 start:
-	python manage.py collectstatic && gunicorn --bind 0.0.0.0:$(PORT) files.wsgi:application
+	gunicorn --bind 0.0.0.0:$(PORT) files.wsgi:application
 
 startdev:
 	python manage.py runserver
