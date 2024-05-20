@@ -1,5 +1,5 @@
 start:
-	gunicorn backend.wsgi
+	gunicorn files.wsgi
 
 startdev:
 	python manage.py runserver
