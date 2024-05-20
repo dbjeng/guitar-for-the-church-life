@@ -1,1 +1,1 @@
-web: cd backend && make start
+backend: cd backend && make start
