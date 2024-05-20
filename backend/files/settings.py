@@ -28,10 +28,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'guitar-for-the-church-life-env.eba-qzfhxmyy.us-west-1.elasticbeanstalk.com', 
-    'backend.guitarforthechurch.life',
-    'localhost', 
-    '127.0.0.1']
+    'https://guitar-for-the-church-life-de04411056e1.herokuapp.com/'
+    'localhost']
 
 # I added this to limit the sites that could make requests to this backend
 CORS_ALLOWED_ORIGINS = [
