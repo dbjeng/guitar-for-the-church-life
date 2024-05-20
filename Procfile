@@ -1,2 +1,2 @@
-web: cd backend && make start
-heroku-postbuild: cd .. && cd frontend && make start
+backend: cd backend && make start
+frontend: cd frontend && make start
