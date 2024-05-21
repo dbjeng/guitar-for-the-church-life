@@ -24,4 +24,5 @@ urlpatterns = [
     path("filter/<str:chords>", views.filter_endpoint),
     re_path(r'^filter/(?P<chords>.*)$', views.filter_endpoint),
     path("best_order_to_learn_chords/", views.best_order_to_learn_chords),
+    re_path(r'^.*$', views.index),  # Catch-all pattern to serve React app
 ]

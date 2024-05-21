@@ -235,3 +235,9 @@ def extract_chords(song):
     chord_set.update(maj7_set)
 
     return chord_set
+
+# From ChatGPT
+from django.shortcuts import render
+
+def index(request):
+    return render(request, 'index.html')
