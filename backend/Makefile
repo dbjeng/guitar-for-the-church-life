@@ -2,7 +2,7 @@ start:
 	python manage.py runserver
 
 # Collects all the frontend files from the most recent build and
-# returns them for certain endpoints
+# returns them for certain endpoints 
 static:
 	python manage.py collectstatic
 
