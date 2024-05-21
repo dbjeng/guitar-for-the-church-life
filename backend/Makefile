@@ -1,5 +1,5 @@
 start:
-	python manage.py runserver
+	gunicorn files.wsgi
 
 # Collects all the frontend files from the most recent build and
 # returns them for certain endpoints
