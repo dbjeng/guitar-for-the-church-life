@@ -1,2 +1,2 @@
 web: cd backend && make start
-web: cd frontend && npm start
+heroku-postbuild: cd frontend && npm start
