@@ -1,1 +1,1 @@
-web: cd frontend && make build
+web: cd backend && make static && make start
