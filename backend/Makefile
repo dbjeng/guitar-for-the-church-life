@@ -4,7 +4,7 @@ start:
 # Collects all the frontend files from the most recent build and
 # returns them for certain endpoints
 static:
-	python manage.py collectstatic
+	yes yes | python manage.py collectstatic --no-input
 
 startdev:
 	python manage.py runserver
