@@ -36,3 +36,4 @@ typing_extensions==4.7.1
 url-normalize==1.4.3
 urllib3==1.26.17
 Werkzeug==2.3.7
+whitenoise==6.6.0
