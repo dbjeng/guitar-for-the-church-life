@@ -19,7 +19,6 @@ from django.urls import re_path
 from . import views
 
 urlpatterns = [
-    path("", views.backend_home),
     path("all_chords/", views.all_chords),
     path("filter/<str:chords>", views.filter_endpoint),
     re_path(r'^filter/(?P<chords>.*)$', views.filter_endpoint),
