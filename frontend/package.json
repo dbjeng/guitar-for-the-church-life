@@ -21,10 +21,11 @@
     "serve": "^14.2.3",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://localhost:${PORT:-8000}",
+  "proxy": "http://localhost:8001",
   "scripts": {
+    "set-proxy": "node setProxy.js",
     "start": "serve -s build",
-    "startdev": "WATCHPACK_POLLING=true react-scripts start",
+    "startdev": "PORT=8001 npm run set-proxy && WATCHPACK_POLLING=true react-scripts start",
     "build": "react-scripts build"
   },
   "eslintConfig": {

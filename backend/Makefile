@@ -7,10 +7,13 @@ static:
 	yes yes | python manage.py collectstatic --no-input
 
 startdev:
-	python manage.py runserver
+	DEV="true" python manage.py runserver
 
 format:
 	black .
 
-# Command to start virtual environment
+# Command to start virtual environment:
 # source env/bin/activate
+
+# To stop virtual environment:
+# deactivate
