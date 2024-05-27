@@ -21,3 +21,10 @@ JSON responses at some endpoints and static HTML files from the frontend at othe
   frontend/package.json file to be the backend port, and run **make startdev**. This should launch 
   the frontend in browser. Updates to files should be live (although slightly delayed), because
   of the WATCHPACK_POLLING=true setting in the frontend/package.json "startdev" script.
+
+# Git Development Instructions
+- For all development, create a new branch named with format "<issue number>-<issue topic>", so for
+  example, if I were resolving issue 27 and I was changing the modal color, I would create a branch
+  named something like 27-changing-modal-color
+- When ready to merge to main, create a pull request. Once reviewed and the issue is fully resolved,
+  we will merge it to main
