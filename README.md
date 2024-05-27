@@ -23,8 +23,9 @@ JSON responses at some endpoints and static HTML files from the frontend at othe
   of the WATCHPACK_POLLING=true setting in the frontend/package.json "startdev" script.
 
 # Git Development Instructions
-- For all development, create a new branch named with format "<issue number>-<issue topic>", so for
+- For all development, development should be done on a branch other than the main branch.
+  Before developing, create a new branch named with format "<issue number>-<issue topic>". For
   example, if I were resolving issue 27 and I was changing the modal color, I would create a branch
-  named something like 27-changing-modal-color
+  named something like 27-changing-modal-color. Switch to this new branch and develop from here.
 - When ready to merge to main, create a pull request. Once reviewed and the issue is fully resolved,
   we will merge it to main
