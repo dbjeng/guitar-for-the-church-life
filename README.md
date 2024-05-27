@@ -27,5 +27,7 @@ JSON responses at some endpoints and static HTML files from the frontend at othe
   Before developing, create a new branch named with format "<issue number>-<issue topic>". For
   example, if I were resolving issue 27 and I was changing the modal color, I would create a branch
   named something like 27-changing-modal-color. Switch to this new branch and develop from here.
-- When ready to merge to main, create a pull request. Once reviewed and the issue is fully resolved,
-  we will merge it to main
+- When ready to merge to main, create a pull request and add @dbjeng as a reviewer.
+  Once reviewed and the issue is fully resolved, we will merge it to main.
+- Note that updates to main will not immediately manifest in changes to guitarforthechurch.life,
+  because a git heroku push must be made for the Heroku server to update.
