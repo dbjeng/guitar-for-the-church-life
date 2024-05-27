@@ -1,3 +1,4 @@
+# Only for deployment, use make startdev for development
 start:
 	gunicorn files.wsgi
 
@@ -11,6 +12,9 @@ startdev:
 
 format:
 	black .
+
+install:
+	pip install -r requirements.txt
 
 # Command to start virtual environment:
 # source env/bin/activate
