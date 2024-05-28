@@ -1,4 +1,12 @@
 # Guitar for the Church Life
+## Toolchain
+Backend: Django, Python
+Frontend: React, JavaScript, CSS, HTML
+Build Tools: Node.js, npm, Webpack
+Version Control: Git, GitHub
+Hosting: Heroku (moved from AWS because of cost)
+Additional Tools: Django REST framework, Axios, Create React App, React Bootstrap
+
 ## Initial Development Setup
 After the initial clone from git, to install requirements for backend and frontend, cd into
 frontend and backend and in each run 'make install'
